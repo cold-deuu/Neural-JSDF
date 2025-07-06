@@ -1,6 +1,6 @@
 # Neural-JSDF for Canadarm
 base code : https://github.com/epfl-lasa/Neural-JSDF
-
+This is the implementation of JSDF in Python(Base Code : MATLAB).
 - - -
 ## Dependencies
 * ROS2 - Humble
@@ -38,4 +38,6 @@ ros2 run data_sampling sampling_node
 
 - - -
 ## To do List
-- [ ] hi
+- [ ] Point Sampling Code
+- [ ] Get Random Joints Code
+- [ ] 
