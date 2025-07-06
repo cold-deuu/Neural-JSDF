@@ -16,17 +16,17 @@ pip3 install trimesh
 pip3 install pyglet==1.5.27
 ```
 
-** Pinocchio
+** Pinocchio **
 ```
 pip3 install pin
 ```
 
-** Numpy
+** Numpy **
 ```
 pip3 install numpy
 ```
 
-** Torch
+** Torch**
 ```
 pip3 install torch
 ```
