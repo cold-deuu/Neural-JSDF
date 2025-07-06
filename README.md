@@ -10,8 +10,23 @@ base code : https://github.com/epfl-lasa/Neural-JSDF
   * Torch
   * Pinocchio
 # Install Dependencies
-```ruby
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
+** Trimesh
+```
+pip3 install trimesh
+pip3 install pyglet==1.5.27
+```
+
+** Pinocchio
+```
+pip3 install pin
+```
+
+** Numpy
+```
+pip3 install numpy
+```
+
+** Torch
+```
+pip3 install torch
 ```
