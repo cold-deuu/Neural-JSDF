@@ -38,4 +38,4 @@ ros2 run data_sampling sampling_node
 
 - - -
 ## To do List
-- [ ] hi
+- [x] hi
