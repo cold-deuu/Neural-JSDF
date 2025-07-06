@@ -30,3 +30,12 @@ pip3 install numpy
 ```
 pip3 install torch
 ```
+- - -
+## HOW TO RUN
+```
+ros2 run data_sampling sampling_node
+```
+
+- - -
+## To do List
+- [] hi
