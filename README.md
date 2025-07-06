@@ -10,6 +10,6 @@ base code : https://github.com/epfl-lasa/Neural-JSDF
   * Torch
   * Pinocchio
 # Install Dependencies
-'''
+'''python
 pip3 install trimesh
 '''
