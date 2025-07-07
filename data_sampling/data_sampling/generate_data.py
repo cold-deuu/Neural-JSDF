@@ -18,6 +18,7 @@ from data_sampling.mesh_manager import MeshManager
 
 # Python3
 import os
+from scipy.io import savemat
 
 class SamplingNode(Node):
     def __init__(self):
@@ -180,6 +181,10 @@ def main(args=None):
             if node.joint_iter >= node.n_joints:
                 node.is_sampling = True
                 np.savetxt(node.data_path + "/points.txt", node.total_array.T, fmt="%.6f")
+                data_to_save = {
+                    "total_array": node.total_array.T  # shape: (N, 18)
+                }
+                savemat(node.data_path + "/points.mat", data_to_save)
                 break
 
     except KeyboardInterrupt:
@@ -198,8 +203,8 @@ def main(args=None):
                     node.mesh_manager.visualize_all_meshes_with_sample(points[i*node.total_pts_per_joint*8:(i+1)*node.total_pts_per_joint*8, 7:10])
 
             else:
-                node.mesh_manager.visualize_all_meshes_with_sample(points[(node.n_joints-1) * node.total_pts_per_joint:node.n_joints*node.total_pts_per_joint, 7:10])
-
+                # node.mesh_manager.visualize_all_meshes_with_sample(points[(node.n_joints-1) * node.total_pts_per_joint:node.n_joints*node.total_pts_per_joint, 7:10])
+                node.mesh_manager.visualize_all_meshes()
 
         else:
             node.mesh_manager.visualize_all_meshes()

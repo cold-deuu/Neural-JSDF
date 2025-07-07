@@ -87,14 +87,8 @@ class mesh:
 
     def calc_signed_dist(self, points):
         points = np.atleast_2d(points)
-
-        # 거리 계산 (unsigned)
         closest_points, dists, _ = trimesh.proximity.closest_point(self.mesh, points)
-
-        # 내부 여부 판단
         inside_mask = self.mesh.contains(points)
-
-        # signed distance 계산
         signed_dists = dists.copy()
         signed_dists[inside_mask] *= -1.0
 
