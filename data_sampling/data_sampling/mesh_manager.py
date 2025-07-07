@@ -67,17 +67,38 @@ class mesh:
         self.closed_box = box(self.updated_V, 0.1)
         self.far_box = box(self.updated_V, 1.0)
         
+        self.mesh = None
 
     def update_mesh(self, rot_mat, trans):
         for i in range(self.init_V.shape[0]):
             self.updated_V[i,:] = (rot_mat @ self.init_V[i,:].T).T + trans
+        self.mesh = trimesh.Trimesh(vertices=self.updated_V, faces=self.F, process=False)
 
         self.box.update_box(self.updated_V)
         self.closed_box.update_box(self.updated_V)
         self.far_box.update_box(self.updated_V)
         self.closed_box.scaling()
         self.far_box.scaling()
-        
+
+    def check_in_mesh(self, points):
+        points = np.atleast_2d(points)
+        return self.mesh.contains(points)
+
+
+    def calc_signed_dist(self, points):
+        points = np.atleast_2d(points)
+
+        # 거리 계산 (unsigned)
+        closest_points, dists, _ = trimesh.proximity.closest_point(self.mesh, points)
+
+        # 내부 여부 판단
+        inside_mask = self.mesh.contains(points)
+
+        # signed distance 계산
+        signed_dists = dists.copy()
+        signed_dists[inside_mask] *= -1.0
+
+        return signed_dists
 
     def return_mesh(self):
         return trimesh.Trimesh(vertices=self.updated_V, faces=self.F, process=False)
@@ -137,27 +158,51 @@ class MeshManager:
     def visualize_all_meshes_with_sample(self, points):
         scene = trimesh.Scene()
 
-        # 포인트를 8개로 나누기
-        N = points.shape[0]
-        group_size = N // 8
+        # # 포인트를 8개로 나누기
+        # N = points.shape[0]
+        # group_size = N // 8
 
-        colors = np.zeros((N, 4), dtype=np.uint8)  # RGBA
+        # colors = np.zeros((N, 4), dtype=np.uint8)  # RGBA
 
-        color_list = [
-            [255, 0, 0, 255],     # 빨강
-            [0, 255, 0, 255],     # 초록
-            [0, 0, 255, 255],     # 파랑
-            [255, 255, 0, 255],   # 노랑
-            [0, 255, 255, 255],   # 시안
-            [255, 0, 255, 255],   # 마젠타
-            [128, 128, 128, 255], # 회색
-            [255, 128, 0, 255]    # 주황
-        ]
+        # color_list = [
+        #     [255, 0, 0, 255],     # 빨강
+        #     [0, 255, 0, 255],     # 초록
+        #     [0, 0, 255, 255],     # 파랑
+        #     [255, 255, 0, 255],   # 노랑
+        #     [0, 255, 255, 255],   # 시안
+        #     [255, 0, 255, 255],   # 마젠타
+        #     [128, 128, 128, 255], # 회색
+        #     [255, 128, 0, 255]    # 주황
+        # ]
 
-        for i in range(8):
-            start = i * group_size
-            end = (i + 1) * group_size if i < 7 else N  # 마지막 그룹은 나머지까지
-            colors[start:end] = color_list[i]
+        # for i in range(8):
+        #     start = i * group_size
+        #     end = (i + 1) * group_size if i < 7 else N  # 마지막 그룹은 나머지까지
+        #     colors[start:end] = color_list[i]
+
+
+
+        color_map = {
+            "inner":  [255, 0, 0, 255],    # 빨강
+            "outer":  [0, 255, 0, 255],    # 초록
+            "closed": [0, 0, 255, 255],    # 파랑
+            "far":    [255, 255, 0, 255]   # 노랑
+        }
+
+        n_groups = 8
+        n_per_type = 25
+        n_total = n_groups * 4 * n_per_type  # = 800
+
+        colors = np.zeros((n_total, 4), dtype=np.uint8)
+
+        for i in range(n_groups):
+            base = i * 4 * n_per_type
+
+            colors[base         : base + n_per_type       ] = color_map["inner"]
+            colors[base + 25    : base + 2*n_per_type     ] = color_map["outer"]
+            colors[base + 2*25  : base + 3*n_per_type     ] = color_map["closed"]
+            colors[base + 3*25  : base + 4*n_per_type     ] = color_map["far"]
+
 
         cloud = trimesh.points.PointCloud(points, colors=colors)
 
