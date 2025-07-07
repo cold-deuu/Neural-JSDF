@@ -54,6 +54,10 @@ class CanadarmWrapper(RobotWrapper):
         self.state.v = zero(self.robot.nv)
         self.state.a = zero(self.robot.nv)
 
+        self.q_upper = 4.71239 * np.ones((7))
+        self.q_lower = -4.71239 * np.ones((7))
+
+
 
         self.state.oMi = pin.SE3()
         self.eef_to_tip = pin.XYZQUATToSE3(np.array([0,0,-1.4, 1, 0, 0, 0]))
@@ -73,4 +77,13 @@ class CanadarmWrapper(RobotWrapper):
             link_pose_list.append(self.data.oMi[self.model.getJointId(self.joint_list[i])])
 
         return link_pose_list
+
+
+    def sampling_random_joints(self):
+        q_span = self.q_upper - self.q_lower
+        q_min = self.q_lower - 0.01 * q_span
+        q_max = self.q_upper + 0.01 * q_span
+        rand_arr = np.random.rand(7)
+
+        return q_min + q_span * rand_arr
 

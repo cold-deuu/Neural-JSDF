@@ -157,7 +157,6 @@ class MeshManager:
 
     def visualize_all_meshes_with_sample(self, points):
         scene = trimesh.Scene()
-
         # # 포인트를 8개로 나누기
         # N = points.shape[0]
         # group_size = N // 8
@@ -182,29 +181,29 @@ class MeshManager:
 
 
 
-        color_map = {
-            "inner":  [255, 0, 0, 255],    # 빨강
-            "outer":  [0, 255, 0, 255],    # 초록
-            "closed": [0, 0, 255, 255],    # 파랑
-            "far":    [255, 255, 0, 255]   # 노랑
-        }
+        # color_map = {
+        #     "inner":  [255, 0, 0, 255],    # 빨강
+        #     "outer":  [0, 255, 0, 255],    # 초록
+        #     "closed": [0, 0, 255, 255],    # 파랑
+        #     "far":    [255, 255, 0, 255]   # 노랑
+        # }
 
-        n_groups = 8
-        n_per_type = 25
-        n_total = n_groups * 4 * n_per_type  # = 800
+        # n_groups = 8
+        # n_per_type = 25
+        # n_total = n_groups * 4 * n_per_type  # = 800
 
-        colors = np.zeros((n_total, 4), dtype=np.uint8)
+        # colors = np.zeros((n_total, 4), dtype=np.uint8)
 
-        for i in range(n_groups):
-            base = i * 4 * n_per_type
+        # for i in range(n_groups):
+        #     base = i * 4 * n_per_type
 
-            colors[base         : base + n_per_type       ] = color_map["inner"]
-            colors[base + 25    : base + 2*n_per_type     ] = color_map["outer"]
-            colors[base + 2*25  : base + 3*n_per_type     ] = color_map["closed"]
-            colors[base + 3*25  : base + 4*n_per_type     ] = color_map["far"]
+        #     colors[base         : base + n_per_type       ] = color_map["inner"]
+        #     colors[base + 25    : base + 2*n_per_type     ] = color_map["outer"]
+        #     colors[base + 2*25  : base + 3*n_per_type     ] = color_map["closed"]
+        #     colors[base + 3*25  : base + 4*n_per_type     ] = color_map["far"]
 
 
-        cloud = trimesh.points.PointCloud(points, colors=colors)
+        cloud = trimesh.points.PointCloud(points)
 
         scene.add_geometry(cloud)
         for m in self.mesh_list:
