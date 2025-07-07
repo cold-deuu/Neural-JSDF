@@ -15,6 +15,7 @@ This is the implementation of JSDF in Python(Base Code : MATLAB).
 ```
 pip3 install trimesh
 pip3 install pyglet==1.5.27
+pip3 install rtree
 ```
 
 **Pinocchio**
