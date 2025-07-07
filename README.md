@@ -39,6 +39,6 @@ ros2 run data_sampling sampling_node
 
 - - -
 ## To do List
-- [ ] Point Sampling Code
-- [ ] Get Random Joints Code
+- [x] Point Sampling Code
+- [x] Get Random Joints Code (Using Numpy)
 - [ ] MLP Regression Code
