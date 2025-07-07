@@ -36,7 +36,7 @@ class SamplingNode(Node):
         self.q = np.zeros((self.robot.robot.nq))
         self.v = np.zeros((self.robot.robot.nv))
 
-        self.n_joints = 3
+        self.n_joints = 5000
         self.joint_iter = 0
 
         self.n_inner_pts = 20
