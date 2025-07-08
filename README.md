@@ -1,7 +1,7 @@
 # Neural-JSDF for Canadarm
 base code : https://github.com/epfl-lasa/Neural-JSDF
 
-This is the implementation of JSDF in Python(Base Code : MATLAB).
+This is the implementation of JSDF for Canadarm in Python(Base Code : MATLAB, Franka).
 - - -
 ## Dependencies
 * ROS2 - Humble
