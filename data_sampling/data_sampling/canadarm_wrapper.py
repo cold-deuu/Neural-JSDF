@@ -41,9 +41,6 @@ class CanadarmWrapper(RobotWrapper):
         self.ee_joint_name = "Wrist_Roll"
         self.state.id = self.index(self.ee_joint_name)
         
-        # self.joint7 = self.model.getJointName(7)
-        # joint_names = [joint.name for joint in self.model.joints]    
-
         self.joint_list = []
         for i in range(1, self.robot.nq+1):
             self.joint_list.append(self.model.names[i])

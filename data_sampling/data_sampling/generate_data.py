@@ -36,7 +36,7 @@ class SamplingNode(Node):
         self.q = np.zeros((self.robot.robot.nq))
         self.v = np.zeros((self.robot.robot.nv))
 
-        self.n_joints = 5000
+        self.n_joints = 2000
         self.joint_iter = 0
 
         self.n_inner_pts = 20
@@ -57,6 +57,7 @@ class SamplingNode(Node):
         self.closed_pts_array = np.empty((3,0))
         self.far_pts_array = np.empty((3,0))
         self.zero_pts_array = np.empty((3,0))
+        self.total_pts_array = np.empty((3,0))
 
         self.inner_dist_array = np.empty((8,0))
         self.closed_dist_array = np.empty((8,0))
@@ -64,7 +65,6 @@ class SamplingNode(Node):
         self.outer_dist_array = np.empty((8,0))
         self.zero_dist_array = np.empty((8,0))
         self.total_dist_array = np.empty((8,0))
-        self.total_pts_array = np.empty((3,0))
 
 
         self.total_array = np.empty((18,0))
